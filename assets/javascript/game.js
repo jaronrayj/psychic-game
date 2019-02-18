@@ -11,11 +11,14 @@ var guessesLeft = 9;
 var guessesMade = [];
 
 // Displayed text
+function displayData() {
+    winsText.textContent = "Wins: " + wins;
+    lossessText.textContent = "Losses: " + losses;
+    guessesLeftText.textContent = "Number of guesses left: " + guessesLeft;
+    guessesMadeText.textContent = "Guesses made: " + guessesMade;
+}
 
-// winsText.textContent = "Wins: " + wins;
-// lossessText.textContent = "Losses: " + losses;
-// guessesLeftText.textContent = "Number of guesses left: " + guessesLeft;
-// guessesMadeText.textContent = "Guesses made: " + guessesMade;
+displayData();
 
 
 // Generate random string
@@ -29,6 +32,14 @@ function generate_random_string(string_length) {
     return random_string
 }
 
+// Messing around with other way to pull the alphabet 
+// alphabetArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+// function getRndInteger(min, max) {
+//     return Math.floor(Math.random() * (max - min)) + min;
+// }
+// var compGuess2 = alphabetArray[getRndInteger(0, 26)]
+// console.log(compGuess2);
+
 // Generate computer's guess from string
 var compGuess = generate_random_string(1);
 
@@ -41,7 +52,7 @@ function newGame() {
 
 // display content in console
 function display() {
-    console.log("users points: " + wins);
+    console.log("wins: " + wins);
     console.log("losses: " + losses);
     console.log("computer guess " + compGuess);
     console.log("Guesses left: " + guessesLeft);
@@ -58,6 +69,7 @@ document.onkeydown = function game(event) {
         wins++;
         newGame();
         display();
+        displayData();
 
     } else {
         // If wrong guess, user gets 9 tries and then losses
@@ -65,12 +77,14 @@ document.onkeydown = function game(event) {
             guessesLeft--;
             guessesMade.push(userInput);
             display();
+            displayData();
 
         } else {
             // After 9 guesses start over again with adding a loss and a new string
             losses++;
             newGame();
             display();
+            displayData();
         }
     }
 }
