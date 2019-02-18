@@ -8,9 +8,8 @@ var guessesMadeText = document.getElementById("guessesMade-text");
 var wins = 0;
 var losses = 0;
 var guessesLeft = 9;
-var guessesMade = ["r", "t"];
+var guessesMade = [];
 
-console.log("Wins: " + wins);
 // Displayed text
 
 // winsText.textContent = "Wins: " + wins;
@@ -32,37 +31,46 @@ function generate_random_string(string_length) {
 
 // Generate computer's guess from string
 var compGuess = generate_random_string(1);
-console.log("computer guess " + compGuess);
 
+// Resets the game
+function newGame() {
+    guessesMade.length = 0;
+    guessesLeft = 9;
+    compGuess = generate_random_string(1);
+}
+
+// display content in console
+function display() {
+    console.log("users points: " + wins);
+    console.log("losses: " + losses);
+    console.log("computer guess " + compGuess);
+    console.log("Guesses left: " + guessesLeft);
+    console.log("Guesses made: " + guessesMade);
+    console.log("------------------------");
+}
 
 // Pull user's input
 document.onkeydown = function game(event) {
 
     var userInput = event.key;
-    // console.log("My Guess " + userInput);
     // if guesses correctly, user wins
     if (userInput === compGuess) {
-
         wins++;
-        guessesLeft = 9;
-        compGuess = generate_random_string(1);
-        console.log("users points: " + wins);
-        console.log("computer guess " + compGuess);
+        newGame();
+        display();
 
     } else {
         // If wrong guess, user gets 9 tries and then losses
         if (guessesLeft > 1) {
-
             guessesLeft--;
-            console.log("Guesses left: " + guessesLeft);
+            guessesMade.push(userInput);
+            display();
 
         } else {
             // After 9 guesses start over again with adding a loss and a new string
             losses++;
-            compGuess = generate_random_string(1);
-            guessesLeft = 9;
-            console.log("losses: " + losses);
-            console.log("computer guess " + compGuess);
+            newGame();
+            display();
         }
     }
 }
