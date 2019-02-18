@@ -8,21 +8,15 @@ var guessesMadeText = document.getElementById("guessesMade-text");
 wins = 0;
 losses = 0;
 guessesLeft = 9;
-guessesMadeText = "";
+guessesMadeText = [];
 
 // Displayed text
-winsText.textContent = "Wins: ";
-lossessText.textContent = "Losses: " + toString.losses;
-guessesLeftText.textContent = "Number of guesses left: " + toString.guessesLeft;
-guessesMadeText.textContent = "Guesses made: " + toString.guessesMadeText;
-
-
-
-// document.write("Wins: " + winsText);
-// document.write("Losses: " + lossessText);
-// document.write("Number of guesses left: " + guessesLeftText);
-// document.write("Letters guessed: " + guessesMadeText);
-
+function dataLoad() {
+    winsText.textContent = "Wins: " + wins;
+    lossessText.textContent = "Losses: " + toString.losses;
+    guessesLeftText.textContent = "Number of guesses left: " + toString.guessesLeft;
+    guessesMadeText.textContent = "Guesses made: " + toString.guessesMadeText
+}
 
 // Generate random string
 function generate_random_string(string_length) {
@@ -41,12 +35,18 @@ console.log("computer guess " + compGuess);
 
 
 // Pull user's input
-document.onkeyup = function (event) {
+document.onkeyup = function game(event) {
     var userInput = event.key;
 
-
-
+    // if guesses correctly, user wins
     if (userInput === compGuess) {
-
+        wins++;
+        generate_random_string(1);
+        console.log("users points: " + wins);
+        console.log(compGuess);
+    } else {
+        // If wrong guess, user gets 9 tries and then losses
+        (guessesLeft - 1);
+        console.log(guessesLeft);
     }
 }
