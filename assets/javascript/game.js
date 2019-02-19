@@ -61,30 +61,37 @@ function display() {
 }
 
 // Pull user's input
-document.onkeydown = function game(event) {
+document.addEventListener("keydown", checkKey)
 
-    var userInput = event.key;
-    // if guesses correctly, user wins
-    if (userInput === compGuess) {
-        wins++;
-        newGame();
-        display();
-        displayData();
+function checkKey(key) {
 
-    } else {
-        // If wrong guess, user gets 9 tries and then losses
-        if (guessesLeft > 1) {
-            guessesLeft--;
-            guessesMade.push(userInput);
+    var keyPress = event.key.toLowerCase();
+
+    if (key.keyCode >= "65" && key.keyCode <= "90") {
+
+        var userInput = event.key.toLowerCase();
+        // if guesses correctly, user wins
+        if (userInput === compGuess) {
+            wins++;
+            newGame();
             display();
             displayData();
 
         } else {
-            // After 9 guesses start over again with adding a loss and a new string
-            losses++;
-            newGame();
-            display();
-            displayData();
+            // If wrong guess, user gets 9 tries and then losses
+            if (guessesLeft > 1) {
+                guessesLeft--;
+                guessesMade.push(userInput);
+                display();
+                displayData();
+
+            } else {
+                // After 9 guesses start over again with adding a loss and a new string
+                losses++;
+                newGame();
+                display();
+                displayData();
+            }
         }
     }
 }
