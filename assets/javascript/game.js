@@ -65,8 +65,6 @@ document.addEventListener("keydown", checkKey)
 
 function checkKey(key) {
 
-    var keyPress = event.key.toLowerCase();
-
     if (key.keyCode >= "65" && key.keyCode <= "90") {
 
         var userInput = event.key.toLowerCase();
